@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Seleccionar Cliente</title>
+</head>
+<body>
+<h2>Selecciona un Cliente</h2>
+<form th:action="@{/cuentas/lista/__clienteId__}" method="get">
+  <select name="clienteId" onchange="this.form.action=this.form.action.replace('__clienteId__', this.value)">
+    <option th:each="cliente : ${clientes}"
+            th:value="${cliente.id}"
+            th:text="${cliente.nombres + ' ' + cliente.apellidos}">
+    </option>
+  </select>
+  <button type="submit">Ver Cuentas</button>
+</form>
+
+<script>
+  const form = document.getElementById('clienteForm');
+  const select = document.getElementById('clienteSelect');
+
+  form.addEventListener('submit', function (e) {
+    const selectedId = select.value;
+    form.action = form.action.replace('__clienteId__', selectedId);
+  });
+</script>
+
+</body>
+</html>

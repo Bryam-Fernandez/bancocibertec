@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seleccionar Cliente</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h2>Selecciona un Cliente</h2>
+
+<form id="clienteForm" method="get" th:action="@{/cuentas/lista}">
+    <select id="clienteSelect" name="clienteId" required>
+        <option value="" disabled selected>-- Selecciona un cliente --</option>
+        <option th:each="cliente : ${clientes}"
+                th:value="${cliente.id}"
+                th:text="${cliente.nombres + ' ' + cliente.apellidos}">
+        </option>
+    </select>
+    <button type="submit">Ver Cuentas</button>
+</form>
+
+<hr/>
+
+<!-- Mostrar cuentas solo si se seleccionó un cliente -->
+<div th:if="${cliente != null}">
+    <h3 th:text="'Cuentas de: ' + ${cliente.nombres} + ' ' + ${cliente.apellidos}"></h3>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Número de Cuenta</th>
+            <th>Tipo</th>
+            <th>Saldo</th>
+            <th>Estado</th>
+            <th>Fecha de Apertura</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cuenta : ${cuentas}">
+            <td th:text="${cuenta.numeroCuenta}"></td>
+            <td th:text="${cuenta.tipoCuenta}"></td>
+            <td th:text="${cuenta.saldoActual}"></td>
+            <td th:text="${cuenta.estado}"></td>
+            <td th:text="${#temporals.format(cuenta.fechaApertura, 'dd/MM/yyyy HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
