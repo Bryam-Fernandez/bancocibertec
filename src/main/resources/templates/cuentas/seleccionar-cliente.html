@@ -21,7 +21,6 @@
 
 <hr/>
 
-<!-- Mostrar cuentas solo si se seleccionó un cliente -->
 <div th:if="${cliente != null}">
     <h3 th:text="'Cuentas de: ' + ${cliente.nombres} + ' ' + ${cliente.apellidos}"></h3>
 

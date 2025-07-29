@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "movimientos")
 public class Movimiento {
 
-    // Getters y Setters
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -59,8 +59,98 @@ public class Movimiento {
 
     @Column(name = "cuenta_destino", length = 20)
     private String cuentaDestino;
+    
+    
 
-    // Constructor por defecto
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNumeroTransaccion() {
+		return numeroTransaccion;
+	}
+
+	public void setNumeroTransaccion(String numeroTransaccion) {
+		this.numeroTransaccion = numeroTransaccion;
+	}
+
+	public TipoMovimiento getTipoMovimiento() {
+		return tipoMovimiento;
+	}
+
+	public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
+		this.tipoMovimiento = tipoMovimiento;
+	}
+
+	public BigDecimal getMonto() {
+		return monto;
+	}
+
+	public void setMonto(BigDecimal monto) {
+		this.monto = monto;
+	}
+
+	public BigDecimal getMontoAnterior() {
+		return montoAnterior;
+	}
+
+	public void setMontoAnterior(BigDecimal montoAnterior) {
+		this.montoAnterior = montoAnterior;
+	}
+
+	public BigDecimal getMontoNuevo() {
+		return montoNuevo;
+	}
+
+	public void setMontoNuevo(BigDecimal montoNuevo) {
+		this.montoNuevo = montoNuevo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public LocalDateTime getFechaTransaccion() {
+		return fechaTransaccion;
+	}
+
+	public void setFechaTransaccion(LocalDateTime fechaTransaccion) {
+		this.fechaTransaccion = fechaTransaccion;
+	}
+
+	public Canal getCanal() {
+		return canal;
+	}
+
+	public void setCanal(Canal canal) {
+		this.canal = canal;
+	}
+
+	public Cuenta getCuenta() {
+		return cuenta;
+	}
+
+	public void setCuenta(Cuenta cuenta) {
+		this.cuenta = cuenta;
+	}
+
+	public String getCuentaDestino() {
+		return cuentaDestino;
+	}
+
+	public void setCuentaDestino(String cuentaDestino) {
+		this.cuentaDestino = cuentaDestino;
+	}
+
+	// Constructor por defecto
     public Movimiento() {
         this.fechaTransaccion = LocalDateTime.now();
     }

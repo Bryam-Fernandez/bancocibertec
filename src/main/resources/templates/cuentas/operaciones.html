@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Operaciones Bancarias</title>
+</head>
+<body>
+
+<h2>Realizar Depósito o Retiro</h2>
+
+<form th:action="@{/cuentas/depositar}" method="post">
+    <label>Número de Cuenta:</label>
+    <input type="text" name="numeroCuenta" required />
+    <label>Monto a Depositar:</label>
+    <input type="number" name="monto" min="0.01" step="0.01" required />
+    <button type="submit">Depositar</button>
+</form>
+
+<br/>
+
+<form th:action="@{/cuentas/retirar}" method="post">
+    <label>Número de Cuenta:</label>
+    <input type="text" name="numeroCuenta" required />
+    <label>Monto a Retirar:</label>
+    <input type="number" name="monto" min="0.01" step="0.01" required />
+    <button type="submit">Retirar</button>
+</form>
+
+<p th:if="${mensaje}" th:text="${mensaje}" style="color: green;"></p>
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+</body>
+</html>

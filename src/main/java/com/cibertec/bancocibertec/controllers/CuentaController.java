@@ -7,21 +7,28 @@ import com.cibertec.bancocibertec.services.CuentaService;
 import com.cibertec.bancocibertec.persistence.repositories.ClienteRepository;
 import com.cibertec.bancocibertec.persistence.repositories.CuentaRepository;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/cuentas")
 public class CuentaController {
 
     private final CuentaService cuentaService;
     private final ClienteRepository clienteRepository;
     private final CuentaRepository cuentaRepository;
+
+    public CuentaController(CuentaService cuentaService,
+                            ClienteRepository clienteRepository,
+                            CuentaRepository cuentaRepository) {
+        this.cuentaService = cuentaService;
+        this.clienteRepository = clienteRepository;
+        this.cuentaRepository = cuentaRepository;
+    }
 
     @GetMapping("/apertura")
     public String mostrarFormulario(Model model) {
@@ -43,7 +50,6 @@ public class CuentaController {
         }
     }
 
-
     @GetMapping("/lista")
     public String seleccionarClienteParaListado(@RequestParam(value = "clienteId", required = false) Long clienteId,
                                                 Model model) {
@@ -60,7 +66,35 @@ public class CuentaController {
 
         return "cuentas/seleccionar-cliente";
     }
+    @GetMapping("/operaciones")
+    public String mostrarOperaciones() {
+        return "cuentas/operaciones";
+    }
 
+    @PostMapping("/depositar")
+    public String depositar(@RequestParam String numeroCuenta,
+                            @RequestParam BigDecimal monto,
+                            Model model) {
+        try {
+            cuentaService.depositar(numeroCuenta, monto);
+            model.addAttribute("mensaje", "Depósito exitoso");
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return "cuentas/operaciones";
+    }
+
+    @PostMapping("/retirar")
+    public String retirar(@RequestParam String numeroCuenta,
+                          @RequestParam BigDecimal monto,
+                          Model model) {
+        try {
+            cuentaService.retirar(numeroCuenta, monto);
+            model.addAttribute("mensaje", "Retiro exitoso");
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return "cuentas/operaciones";
+    }
 
 }
-
